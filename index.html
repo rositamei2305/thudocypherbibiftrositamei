@@ -33,8 +33,8 @@
 src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2193504967&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
 </iframe>
 
-<div id="message">🎧 Nghe ít nhất <strong>20 giây</strong> để mở khóa tải xuống🎧</div>
-<div id="countdown">20</div>
+<div id="message">🎧 Nghe ít nhất <strong>30 giây</strong> để mở khóa tải xuống🎧</div>
+<div id="countdown">30</div>
 <a id="download" href="https://drive.google.com/file/d/1_1oYuOysgapmbw4vd1nCB9btvavu-lLC/view?usp=sharing" target="_blank">
 Tải xuống ngay
 </a>
@@ -51,7 +51,7 @@ const message = document.getElementById("message");
 const widget = SC.Widget(iframe);
 let totalListened = 0;
 let interval = null;
-const targetSeconds = 20;
+const targetSeconds = 30;
 function updateCountdown() {
   const remaining = targetSeconds - totalListened;
   countdown.textContent = remaining;
