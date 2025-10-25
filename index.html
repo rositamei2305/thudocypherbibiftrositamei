@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>INFINITY FLOW - Rosita Mei x ZillM ft. McE</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin:0; padding:0; font-family:"Poppins",sans-serif; }
+  body { height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:#000; color:#fff; overflow:hidden; }
+  #bg { position:absolute; inset:0; width:100%; height:100%; background:url('https://i.ibb.co/Rk3QQQcj/your-image.jpg') center center / cover no-repeat; filter:blur(10px) brightness(0.7); transform:scale(1.05); z-index:0; animation:moveBg 6s ease-in-out infinite alternate; }
+  @keyframes moveBg { from{transform:scale(1.05) translateY(-10px);} to{transform:scale(1.05) translateY(10px);} }
+  .overlay { position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.9)); z-index:1; }
+  .content { position:relative; z-index:2; text-align:center; max-width:600px; padding:20px; }
+  h1 { font-size:1.6rem; font-weight:600; margin-bottom:25px; }
+  iframe#player { width:100%; height:166px; border:none; border-radius:12px; margin-bottom:20px; transition:box-shadow 0.3s; }
+  iframe#player:hover { box-shadow:0 0 15px rgba(255,85,0,0.5); }
+  #message { font-size:1.1rem; opacity:0.9; margin-bottom:10px; }
+  #countdown { font-size:1.5rem; font-weight:600; color:#fff; margin-bottom:25px; transition:color 0.5s; }
+  #download { display:none; background:#ff5500; color:white; font-weight:600; padding:14px 34px; border:none; border-radius:25px; cursor:pointer; font-size:16px; text-decoration:none; transition:all 0.4s ease; }
+  #download:hover { background:#ff7733; transform:scale(1.05); box-shadow:0 0 15px rgba(255,85,0,0.5); }
+  footer { position:absolute; bottom:20px; width:100%; text-align:center; color:rgba(255,255,255,0.7); font-size:14px; z-index:2; }
+</style>
+</head>
+<body>
+<div id="bg"></div>
+<div class="overlay"></div>
+<div class="content">
+<h1>INFINITY FLOW - Rosita Mei x ZillM ft. McE</h1>
+
+<!-- Thay iframe cũ bằng iframe nhúng hợp lệ từ SoundCloud -->
+<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay"
+src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2193504967&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
+</iframe>
+
+<div id="message">🎧 Nghe ít nhất <strong>20 giây</strong> để mở khóa tải xuống🎧</div>
+<div id="countdown">20</div>
+<a id="download" href="https://drive.google.com/file/d/1_1oYuOysgapmbw4vd1nCB9btvavu-lLC/view?usp=sharing" target="_blank">
+Tải xuống ngay
+</a>
+</div>
+<footer>
+© 2025 Rosita Mei – Mọi quyền được bảo lưu · <a href="#" style="color:#fff;text-decoration:underline;">Chính sách bảo mật</a>
+</footer>
+<script src="https://w.soundcloud.com/player/api.js"></script>
+<script>
+const iframe = document.querySelector("iframe");
+const countdown = document.getElementById("countdown");
+const download = document.getElementById("download");
+const message = document.getElementById("message");
+const widget = SC.Widget(iframe);
+let totalListened = 0;
+let interval = null;
+const targetSeconds = 20;
+function updateCountdown() {
+  const remaining = targetSeconds - totalListened;
+  countdown.textContent = remaining;
+  if (remaining <= 10) countdown.style.color = "#ff5500";
+  if (remaining <= 0) {
+    clearInterval(interval);
+    countdown.style.display = "none";
+    message.textContent = "✅ Đã mở khóa tải xuống!";
+    download.style.display = "inline-block";
+    download.style.animation = "fadeIn 1s ease";
+  }
+}
+widget.bind(SC.Widget.Events.PLAY, () => {
+  if (!interval && totalListened < targetSeconds) {
+    interval = setInterval(() => { totalListened++; updateCountdown(); }, 1000);
+  }
+});
+widget.bind(SC.Widget.Events.PAUSE, () => { if (interval) { clearInterval(interval); interval = null; } });
+widget.bind(SC.Widget.Events.FINISH, () => { if (interval) { clearInterval(interval); interval = null; } });
+</script>
+</body>
+</html>
